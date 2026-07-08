@@ -1,0 +1,43 @@
+[
+  {
+    "id": "deal_damage",
+    "executorType": "DealDamageExecutor",
+    "displayNameKey": "碰到"
+  },
+  {
+    "id": "heal",
+    "executorType": "HealExecutor",
+    "displayNameKey": "回暖"
+  },
+  {
+    "id": "apply_buff",
+    "executorType": "ApplyBuffExecutor",
+    "displayNameKey": "沾上",
+    "defaultParams": { "duration": "1" }
+  },
+  {
+    "id": "remove_buff",
+    "executorType": "RemoveBuffExecutor",
+    "displayNameKey": "忘掉"
+  },
+  {
+    "id": "gain_block",
+    "executorType": "GainBlockExecutor",
+    "displayNameKey": "挡住"
+  },
+  {
+    "id": "draw_cards",
+    "executorType": "DrawCardsExecutor",
+    "displayNameKey": "想起"
+  },
+  {
+    "id": "gain_mana",
+    "executorType": "GainManaExecutor",
+    "displayNameKey": "涌出"
+  },
+  {
+    "id": "deal_aoe_damage",
+    "executorType": "DealDamageExecutor",
+    "displayNameKey": "碰到"
+  }
+]

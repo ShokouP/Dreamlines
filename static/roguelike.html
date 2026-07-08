@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CardForge 肉鸽模式</title>
+<link rel="stylesheet" href="style.css?v=5">
+<style>
+#roguelike-app { max-width: 1100px; margin: 0 auto; padding: 16px 24px; min-height: 100vh; display: flex; flex-direction: column; }
+#roguelike-app header { border-bottom: 1px solid var(--border); margin-bottom: 16px; padding-bottom: 12px; }
+#roguelike-app header h1 { color: var(--fg); font-weight: 300; letter-spacing: -0.02em; }
+#roguelike-app header .subtitle { color: var(--fg-dim); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; }
+.top-nav { display: flex; gap: 22px; margin-left: 12px; }
+.top-nav a { font-size: 0.66rem; color: var(--fg-dim); letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; padding: 4px 0; border-bottom: 1px solid transparent; transition: color var(--transition-fast), border-color var(--transition-fast); }
+.top-nav a:hover { color: var(--fg); border-bottom-color: var(--border-strong); }
+.intro { color: var(--fg-dim); font-size: 0.82rem; line-height: 1.7; margin: 6px 0 14px; max-width: 60ch; font-weight: 300; }
+.map-wrap { flex: 1; position: relative; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; min-height: 480px; }
+#map-svg { width: 100%; height: 100%; display: block; }
+#map-controls { position: absolute; top: 12px; right: 12px; display: flex; gap: 8px; }
+#map-controls button { padding: 6px 12px; font-size: 0.75rem; }
+.run-status { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; font-size: 0.8rem; color: var(--fg-dim); letter-spacing: 0.04em; }
+.run-status b { color: var(--fg); font-weight: 500; font-family: var(--font-mono); }
+.node-group { cursor: pointer; }
+.node-group:hover .node-circle { filter: brightness(1.15); }
+.node-group.locked { cursor: not-allowed; opacity: 0.4; }
+.node-group.current .node-circle { stroke: var(--accent); stroke-width: 3px; }
+.node-group.cleared .node-circle { opacity: 0.55; }
+.node-label { font-size: 10px; fill: var(--fg); text-anchor: middle; pointer-events: none; font-weight: 500; letter-spacing: 0.02em; }
+.node-icon { fill: var(--bg); pointer-events: none; }
+.map-edge { fill: none; stroke: var(--border); stroke-width: 1.5; }
+.map-edge.active { stroke: var(--accent); stroke-width: 2; }
+.map-edge.cleared { stroke: var(--border-strong); }
+.node-tooltip { position: absolute; background: var(--bg2); border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 10px 14px; font-size: 0.78rem; color: var(--fg); pointer-events: none; box-shadow: var(--shadow-md); opacity: 0; transition: opacity 0.15s; max-width: 240px; z-index: 10; }
+.node-tooltip.visible { opacity: 1; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: center; z-index: 100; }
+.modal-overlay.hidden { display: none; }
+.modal-box { background: transparent; border: none; border-radius: var(--radius-xl); padding: 40px 48px; width: 90%; max-width: 520px; text-align: center; }
+.modal-box h3 { color: var(--fg); margin-bottom: 14px; font-weight: 200; font-size: 2rem; letter-spacing: -0.02em; }
+.modal-box p { color: var(--fg-dim); font-size: 0.82rem; margin-bottom: 18px; line-height: 1.7; font-weight: 300; }
+.modal-actions { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+.reward-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin: 18px 0; }
+.reward-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; cursor: pointer; transition: transform 0.2s, border-color 0.2s; }
+.reward-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.reward-card .name { font-weight: 400; font-size: 0.88rem; margin-bottom: 4px; letter-spacing: -0.01em; }
+.reward-card .type { font-size: 0.62rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.16em; }
+.reward-card .desc { font-size: 0.7rem; color: var(--fg-dim); margin-top: 8px; line-height: 1.4; font-family: var(--font-mono); }
+</style>
+</head>
+<body>
+<div id="roguelike-app">
+  <header>
+    <h1>走回家</h1>
+    <span class="subtitle">梦 核 冒 险</span>
+    <nav class="top-nav">
+      <a href="play.html">主页</a>
+      <a href="battle.html">对战</a>
+    </nav>
+    <div id="user-bar">
+      <span id="user-display"></span>
+      <a href="play.html" class="link-subtle">返回个人中心</a>
+    </div>
+  </header>
+
+  <p class="intro" id="intro-text">钥匙还在门垫下。推开门，屋里亮着一盏你不记得开过的灯。穿过童年的旧房子，回到自己的房间——沿途的梦魇不是要被打败，是要被想起来。</p>
+
+  <div class="run-status" id="run-status">
+    <span>我是 <b id="run-char">—</b></span>
+    <span>清醒 <b id="run-hp">—</b></span>
+    <span>牌库 <b id="run-deck">—</b></span>
+    <span>位置 <b id="run-region">—</b></span>
+    <span>种子 <b id="run-seed">—</b></span>
+    <button id="btn-abandon" class="danger small">放弃本局</button>
+  </div>
+
+  <div class="map-wrap" id="map-wrap">
+    <svg id="map-svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+      <g id="edges-layer"></g>
+      <g id="nodes-layer"></g>
+    </svg>
+    <div id="map-controls">
+      <button id="btn-new-run" class="primary small">新 run</button>
+      <button id="btn-regen" class="small">重roll地图</button>
+    </div>
+    <div id="node-tooltip" class="node-tooltip"></div>
+  </div>
+</div>
+
+<div id="event-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <h3 id="event-title">节点</h3>
+    <p id="event-desc">描述文本</p>
+    <div id="event-content"></div>
+    <div class="modal-actions">
+      <button id="btn-event-cancel" class="small">取消</button>
+      <button id="btn-event-confirm" class="primary small">确认</button>
+    </div>
+  </div>
+</div>
+
+<script src="auth.js?v=5"></script>
+<script src="roguelike-map.js?v=6"></script>
+<script src="roguelike.js?v=7"></script>
+</body>
+</html>

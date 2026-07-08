@@ -1,0 +1,30 @@
+# Secrets — never commit
+secrets.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Runtime user data (contains password hashes / match logs)
+data/players/
+data/matches/
+data/.backups/
+
+# Claude Code session state
+.claude/settings.local.json
+.claude/projects/
+.claude/plans/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Unrelated scratch / other projects sharing this directory
+IndexTTS-V2.0/
+ppt-master-main/
+.playwright-mcp/
+/*.png
+balance-simulation.js
+roguelike-simulation.js

@@ -1,0 +1,708 @@
+[
+  {
+    "id": "strike",
+    "nameKey": "泡泡糖",
+    "descriptionKey": "黏在鞋底的甜，碰到 6 下。",
+    "type": "Attack",
+    "rarity": "Basic",
+    "cost": 1,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 6, "parameters": {} }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "defend",
+    "nameKey": "被子",
+    "descriptionKey": "把被子拉过头顶，挡住 5 下。",
+    "type": "Skill",
+    "rarity": "Basic",
+    "cost": 1,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "gain_block", "value": 5 }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "bash",
+    "nameKey": "滑滑梯",
+    "descriptionKey": "从顶端一路滑到底，碰到 8 下，让人光着脚。",
+    "type": "Attack",
+    "rarity": "Basic",
+    "cost": 2,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 8 },
+      {
+        "effectId": "apply_buff",
+        "value": 1,
+        "parameters": { "buffId_ref": "vulnerable", "duration": "2" }
+      }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "fireball",
+    "nameKey": "生日蜡烛",
+    "descriptionKey": "一口气吹不灭的火，碰到 9 下，烧起来。",
+    "type": "Attack",
+    "rarity": "Uncommon",
+    "element": "Fire",
+    "cost": 2,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 9 },
+      {
+        "effectId": "apply_buff",
+        "value": 3,
+        "parameters": { "buffId_ref": "burning", "duration": "2" }
+      }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "healing_light",
+    "nameKey": "创可贴",
+    "descriptionKey": "贴在膝盖上就不疼了，回暖 5。",
+    "type": "Skill",
+    "rarity": "Common",
+    "cost": 1,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "heal", "value": 5 }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "poison_strike",
+    "nameKey": "过期牛奶",
+    "descriptionKey": "闻了一下就肚子疼，碰到 3 下。",
+    "type": "Attack",
+    "rarity": "Common",
+    "cost": 1,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 3 },
+      {
+        "effectId": "apply_buff",
+        "value": 3,
+        "parameters": { "buffId_ref": "poison", "duration": "3" }
+      }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "draw_power",
+    "nameKey": "日记本",
+    "descriptionKey": "翻开一页，想起 2 件事。",
+    "type": "Skill",
+    "rarity": "Common",
+    "cost": 0,
+    "targetType": "None",
+    "effects": [
+      { "effectId": "draw_cards", "value": 2 }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "shield_bash",
+    "nameKey": "锅盖",
+    "descriptionKey": "拿锅盖挡一下再敲回去，挡住 5。",
+    "type": "Attack",
+    "rarity": "Uncommon",
+    "cost": 1,
+    "targetType": "SingleEnemy",
+    "effects": [
+      {
+        "effectId": "deal_damage",
+        "value": 0,
+        "parameters": { "dynamicValue": "owner.block" }
+      },
+      { "effectId": "gain_block", "value": 5 }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "heavy_strike",
+    "nameKey": "铁门",
+    "descriptionKey": "关得很重的一扇门，碰到 11 下。",
+    "type": "Attack",
+    "rarity": "Common",
+    "cost": 2,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 11 }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "twin_slash",
+    "nameKey": "双胞胎",
+    "descriptionKey": "两个人一起碰，各 3 下。",
+    "type": "Attack",
+    "rarity": "Common",
+    "cost": 1,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 3 },
+      { "effectId": "deal_damage", "value": 3 }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "fortress",
+    "nameKey": "壁橱",
+    "descriptionKey": "钻进壁橱里谁也找不到，挡住 14。消耗。",
+    "type": "Skill",
+    "rarity": "Uncommon",
+    "cost": 2,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "gain_block", "value": 14 }
+    ],
+    "keywordIds": ["exhaust"],
+    "customData": {}
+  },
+  {
+    "id": "iron_will",
+    "nameKey": "纽扣",
+    "descriptionKey": "把纽扣一颗颗扣好，挡住 6，长高了一点。",
+    "type": "Skill",
+    "rarity": "Uncommon",
+    "cost": 1,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "gain_block", "value": 6 },
+      {
+        "effectId": "apply_buff",
+        "value": 2,
+        "parameters": { "buffId_ref": "strength", "duration": "99" }
+      }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "adrenaline",
+    "nameKey": "汽水",
+    "descriptionKey": "一口灌下去打个嗝，想起 2 件事，涌出 2。消耗。",
+    "type": "Skill",
+    "rarity": "Rare",
+    "cost": 0,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "draw_cards", "value": 2 },
+      { "effectId": "gain_mana", "value": 2 }
+    ],
+    "keywordIds": ["exhaust"],
+    "customData": {}
+  },
+  {
+    "id": "cleave",
+    "nameKey": "面包",
+    "descriptionKey": "掰开半块面包，碰到 5 下，回暖 2。",
+    "type": "Attack",
+    "rarity": "Common",
+    "cost": 1,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 5 },
+      { "effectId": "heal", "value": 2 }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "pommel_strike",
+    "nameKey": "铅笔",
+    "descriptionKey": "用铅笔尾端敲一下，碰到 5 下，想起 1 件事。",
+    "type": "Attack",
+    "rarity": "Uncommon",
+    "cost": 1,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 5 },
+      { "effectId": "draw_cards", "value": 1 }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "battle_cry",
+    "nameKey": "闹钟",
+    "descriptionKey": "闹钟突然响起来，长高了 3。消耗。",
+    "type": "Skill",
+    "rarity": "Rare",
+    "cost": 0,
+    "targetType": "Self",
+    "effects": [
+      {
+        "effectId": "apply_buff",
+        "value": 3,
+        "parameters": { "buffId_ref": "strength", "duration": "99" }
+      }
+    ],
+    "keywordIds": ["exhaust"],
+    "customData": {}
+  },
+  {
+    "id": "thunder_slam",
+    "nameKey": "洗衣机",
+    "descriptionKey": "洗衣机转到最快，碰到 10 下，让人光脚，想起 1 件事。",
+    "type": "Attack",
+    "rarity": "Rare",
+    "element": "Lightning",
+    "cost": 2,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 10 },
+      {
+        "effectId": "apply_buff",
+        "value": 2,
+        "parameters": { "buffId_ref": "vulnerable", "duration": "1" }
+      },
+      { "effectId": "draw_cards", "value": 1 }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "frost_bolt",
+    "nameKey": "冰棍",
+    "descriptionKey": "舔一口舌头粘住了，碰到 4 下，让人光脚。",
+    "type": "Attack",
+    "rarity": "Common",
+    "element": "Ice",
+    "cost": 1,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 4 },
+      {
+        "effectId": "apply_buff",
+        "value": 2,
+        "parameters": { "buffId_ref": "vulnerable", "duration": "1" }
+      }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "arcane_missiles",
+    "nameKey": "弹珠",
+    "descriptionKey": "三颗弹珠滚出去，各碰到 2 下。",
+    "type": "Attack",
+    "rarity": "Common",
+    "cost": 1,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 2 },
+      { "effectId": "deal_damage", "value": 2 },
+      { "effectId": "deal_damage", "value": 2 }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "mana_surge",
+    "nameKey": "水龙头",
+    "descriptionKey": "拧开水龙头，涌出 2，想起 1 件事。",
+    "type": "Skill",
+    "rarity": "Common",
+    "cost": 0,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "gain_mana", "value": 2 },
+      { "effectId": "draw_cards", "value": 1 }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "concentrate",
+    "nameKey": "图书馆",
+    "descriptionKey": "在图书馆坐到闭馆，想起 3 件事。",
+    "type": "Skill",
+    "rarity": "Uncommon",
+    "cost": 1,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "draw_cards", "value": 3 }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "flame_wave",
+    "nameKey": "壁炉",
+    "descriptionKey": "壁炉里的火苗窜出来，碰到 7 下，烧起来。",
+    "type": "Attack",
+    "rarity": "Uncommon",
+    "element": "Fire",
+    "cost": 2,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 7 },
+      {
+        "effectId": "apply_buff",
+        "value": 4,
+        "parameters": { "buffId_ref": "burning", "duration": "2" }
+      }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "ice_barrier",
+    "nameKey": "冰箱",
+    "descriptionKey": "打开冰箱站在门前，挡住 8，穿上外套。",
+    "type": "Skill",
+    "rarity": "Uncommon",
+    "element": "Ice",
+    "cost": 1,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "gain_block", "value": 8 },
+      {
+        "effectId": "apply_buff",
+        "value": 1,
+        "parameters": { "buffId_ref": "metallicize", "duration": "99" }
+      }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "storm_channel",
+    "nameKey": "风筝",
+    "descriptionKey": "线放完风筝飞走了，长高了 2，想起 1 件事。消耗。",
+    "type": "Skill",
+    "rarity": "Rare",
+    "element": "Lightning",
+    "cost": 1,
+    "targetType": "Self",
+    "effects": [
+      {
+        "effectId": "apply_buff",
+        "value": 2,
+        "parameters": { "buffId_ref": "strength", "duration": "99" }
+      },
+      { "effectId": "draw_cards", "value": 1 }
+    ],
+    "keywordIds": ["exhaust"],
+    "customData": {}
+  },
+  {
+    "id": "meteor",
+    "nameKey": "石头",
+    "descriptionKey": "楼下掉下来一块石头，碰到 18 下，烧起来。消耗。",
+    "type": "Attack",
+    "rarity": "Epic",
+    "element": "Fire",
+    "cost": 3,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 18 },
+      {
+        "effectId": "apply_buff",
+        "value": 5,
+        "parameters": { "buffId_ref": "burning", "duration": "2" }
+      }
+    ],
+    "keywordIds": ["exhaust"],
+    "customData": {}
+  },
+  {
+    "id": "blizzard",
+    "nameKey": "雪球",
+    "descriptionKey": "一个比头还大的雪球，碰到 12 下，让人光脚。消耗。",
+    "type": "Attack",
+    "rarity": "Epic",
+    "element": "Ice",
+    "cost": 3,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 12 },
+      {
+        "effectId": "apply_buff",
+        "value": 2,
+        "parameters": { "buffId_ref": "vulnerable", "duration": "3" }
+      }
+    ],
+    "keywordIds": ["exhaust"],
+    "customData": {}
+  },
+  {
+    "id": "meditate",
+    "nameKey": "午后",
+    "descriptionKey": "午后三点发了一会儿呆，回暖 4，想起 1 件事，挡住 3。",
+    "type": "Skill",
+    "rarity": "Uncommon",
+    "cost": 1,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "heal", "value": 4 },
+      { "effectId": "draw_cards", "value": 1 },
+      { "effectId": "gain_block", "value": 3 }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "ricochet",
+    "nameKey": "乒乓球",
+    "descriptionKey": "乒乓球在墙上弹了两下，各碰到 4 下，想起 1 件事。",
+    "type": "Attack",
+    "rarity": "Rare",
+    "cost": 2,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 4 },
+      { "effectId": "deal_damage", "value": 4 },
+      { "effectId": "draw_cards", "value": 1 }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "mirror_image",
+    "nameKey": "镜子",
+    "descriptionKey": "镜子里的人帮你挡一下，挡住 7，扎手。消耗。",
+    "type": "Skill",
+    "rarity": "Rare",
+    "cost": 1,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "gain_block", "value": 7 },
+      {
+        "effectId": "apply_buff",
+        "value": 2,
+        "parameters": { "buffId_ref": "thorns", "duration": "99" }
+      }
+    ],
+    "keywordIds": ["exhaust"],
+    "customData": {}
+  },
+
+  {
+    "id": "nightlight",
+    "nameKey": "夜灯",
+    "descriptionKey": "把夜灯留一盏，挡住 6，穿上外套。",
+    "type": "Skill",
+    "rarity": "Uncommon",
+    "cost": 1,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "gain_block", "value": 6 },
+      { "effectId": "apply_buff", "value": 1, "parameters": { "buffId_ref": "metallicize", "duration": "99" } }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "doorbolt",
+    "nameKey": "门闩",
+    "descriptionKey": "把门闩插上，挡住 4，想起 1 件事。",
+    "type": "Skill",
+    "rarity": "Common",
+    "cost": 1,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "gain_block", "value": 4 },
+      { "effectId": "draw_cards", "value": 1 }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "vigil",
+    "nameKey": "守夜",
+    "descriptionKey": "守一整夜，挡住 3，生出扎手。",
+    "type": "Skill",
+    "rarity": "Uncommon",
+    "cost": 1,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "gain_block", "value": 3 },
+      { "effectId": "apply_buff", "value": 1, "parameters": { "buffId_ref": "thorns", "duration": "99" } }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "peephole",
+    "nameKey": "猫眼",
+    "descriptionKey": "从猫眼往外看一眼，想起 1 件事，涌出 1。消耗。",
+    "type": "Skill",
+    "rarity": "Rare",
+    "cost": 0,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "draw_cards", "value": 1 },
+      { "effectId": "gain_mana", "value": 1 }
+    ],
+    "keywordIds": ["exhaust"],
+    "customData": {}
+  },
+  {
+    "id": "latebell",
+    "nameKey": "深夜的钟",
+    "descriptionKey": "钟声穿过墙，碰到 10 下，让人光脚。",
+    "type": "Attack",
+    "rarity": "Uncommon",
+    "cost": 2,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 10 },
+      { "effectId": "apply_buff", "value": 1, "parameters": { "buffId_ref": "vulnerable", "duration": "1" } }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "lightsout",
+    "nameKey": "熄灯",
+    "descriptionKey": "把所有的灯关掉，挡住 9。消耗。",
+    "type": "Skill",
+    "rarity": "Uncommon",
+    "cost": 1,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "gain_block", "value": 9 }
+    ],
+    "keywordIds": ["exhaust"],
+    "customData": {}
+  },
+  {
+    "id": "longnight",
+    "nameKey": "长夜",
+    "descriptionKey": "一夜不会结束，穿上外套 2，生出扎手。",
+    "type": "Skill",
+    "rarity": "Rare",
+    "cost": 2,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "apply_buff", "value": 2, "parameters": { "buffId_ref": "metallicize", "duration": "99" } },
+      { "effectId": "apply_buff", "value": 1, "parameters": { "buffId_ref": "thorns", "duration": "99" } }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+
+  {
+    "id": "stairs",
+    "nameKey": "楼梯",
+    "descriptionKey": "踩空一级，碰到 7 下，想起 1 件事。消耗。",
+    "type": "Attack",
+    "rarity": "Common",
+    "cost": 1,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 7 },
+      { "effectId": "draw_cards", "value": 1 }
+    ],
+    "keywordIds": ["exhaust"],
+    "customData": {}
+  },
+  {
+    "id": "sleepwalk",
+    "nameKey": "梦游",
+    "descriptionKey": "闭着眼走过去，想起 2 件事，涌出 1。消耗。",
+    "type": "Skill",
+    "rarity": "Rare",
+    "cost": 0,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "draw_cards", "value": 2 },
+      { "effectId": "gain_mana", "value": 1 }
+    ],
+    "keywordIds": ["exhaust"],
+    "customData": {}
+  },
+  {
+    "id": "mirrorone",
+    "nameKey": "镜中人",
+    "descriptionKey": "镜子里的人先动了，碰到 4 下，让人光脚。",
+    "type": "Attack",
+    "rarity": "Common",
+    "cost": 1,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 4 },
+      { "effectId": "apply_buff", "value": 2, "parameters": { "buffId_ref": "vulnerable", "duration": "1" } }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "thefall",
+    "nameKey": "下坠",
+    "descriptionKey": "从最后一级摔下去，碰到 14 下。消耗。",
+    "type": "Attack",
+    "rarity": "Uncommon",
+    "cost": 2,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 14 }
+    ],
+    "keywordIds": ["exhaust"],
+    "customData": {}
+  },
+  {
+    "id": "spiral",
+    "nameKey": "回旋梯",
+    "descriptionKey": "绕着圈下来，碰到 3 下，又碰到 3 下，想起 1 件事。",
+    "type": "Attack",
+    "rarity": "Common",
+    "cost": 1,
+    "targetType": "SingleEnemy",
+    "effects": [
+      { "effectId": "deal_damage", "value": 3 },
+      { "effectId": "deal_damage", "value": 3 },
+      { "effectId": "draw_cards", "value": 1 }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "halfsleep",
+    "nameKey": "半梦半醒",
+    "descriptionKey": "分不清是醒是睡，回暖 3，想起 2 件事。",
+    "type": "Skill",
+    "rarity": "Uncommon",
+    "cost": 1,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "heal", "value": 3 },
+      { "effectId": "draw_cards", "value": 2 }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  },
+  {
+    "id": "reflection",
+    "nameKey": "倒影",
+    "descriptionKey": "看着水里的自己，挡住 5，长高了 1。",
+    "type": "Skill",
+    "rarity": "Uncommon",
+    "cost": 1,
+    "targetType": "Self",
+    "effects": [
+      { "effectId": "gain_block", "value": 5 },
+      { "effectId": "apply_buff", "value": 1, "parameters": { "buffId_ref": "strength", "duration": "99" } }
+    ],
+    "keywordIds": [],
+    "customData": {}
+  }
+]

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CardForge 对战</title>
+<link rel="stylesheet" href="style.css?v=7">
+</head>
+<body>
+<div id="battle-app">
+  <header>
+    <h1>CardForge 对战</h1>
+    <span class="subtitle">回合制卡牌对战</span>
+    <a href="index.html" class="link-subtle" id="back-link">返回管理</a>
+  </header>
+
+  <!-- SVG Icon Sprite -->
+  <svg style="display:none;">
+    <symbol id="icon-sword" viewBox="0 0 24 24"><path d="M14.5 17.5L3 6V3h3l11.5 11.5L14.5 17.5zM21 3l-5 5M4 21l5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-orb" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="icon-bolt" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor"/></symbol>
+    <symbol id="icon-heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="currentColor"/></symbol>
+    <symbol id="icon-skull" viewBox="0 0 24 24"><circle cx="9" cy="10" r="1.5" fill="currentColor"/><circle cx="15" cy="10" r="1.5" fill="currentColor"/><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zm0 0v-4m-3 0h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="icon-buff" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="icon-debuff" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM8 12h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="icon-card-art" viewBox="0 0 24 24"><path d="M4 4h16v16H4z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  </svg>
+
+  <!-- Character selection -->
+  <div id="select-screen">
+    <h2>选择你的角色</h2>
+    <div id="char-select">
+      <div class="char-card" data-id="ironclad">
+        <div class="char-avatar ironclad">
+          <svg class="icon" aria-hidden="true"><use href="#icon-sword"></use></svg>
+        </div>
+        <div class="char-name">执灯人</div>
+        <div class="char-hp"><svg class="icon" aria-hidden="true"><use href="#icon-heart"></use></svg> 清醒 75</div>
+        <div class="char-deck">9 张牌</div>
+      </div>
+      <div class="char-card" data-id="mage">
+        <div class="char-avatar mage">
+          <svg class="icon" aria-hidden="true"><use href="#icon-orb"></use></svg>
+        </div>
+        <div class="char-name">拾梦人</div>
+        <div class="char-hp"><svg class="icon" aria-hidden="true"><use href="#icon-heart"></use></svg> 清醒 55</div>
+        <div class="char-deck">7 张牌</div>
+      </div>
+      <div class="char-card" data-id="nightwatch">
+        <div class="char-avatar nightwatch">
+          <svg class="icon" aria-hidden="true"><use href="#icon-shield"></use></svg>
+        </div>
+        <div class="char-name">守夜人</div>
+        <div class="char-hp"><svg class="icon" aria-hidden="true"><use href="#icon-heart"></use></svg> 清醒 80</div>
+        <div class="char-deck">9 张牌</div>
+      </div>
+      <div class="char-card" data-id="sleepwalker">
+        <div class="char-avatar sleepwalker">
+          <svg class="icon" aria-hidden="true"><use href="#icon-bolt"></use></svg>
+        </div>
+        <div class="char-name">梦游者</div>
+        <div class="char-hp"><svg class="icon" aria-hidden="true"><use href="#icon-heart"></use></svg> 清醒 60</div>
+        <div class="char-deck">8 张牌</div>
+      </div>
+    </div>
+    <button id="btn-start" class="primary" disabled>选择一个角色开始对战</button>
+  </div>
+
+  <!-- Battle screen -->
+  <div id="battle-screen" class="hidden">
+    <div class="turn-indicator" id="turn-indicator">你的回合</div>
+
+    <div class="battle-grid">
+      <!-- Main column: enemy / player / hand -->
+      <div class="battle-main">
+
+        <!-- Enemy (AI) -->
+        <div class="battle-hero enemy" data-drop="enemy">
+          <div class="intent-row" id="enemy-intent" aria-label="敌人意图"></div>
+          <div class="hero-info">
+            <div class="hero-portrait enemy-portrait" id="enemy-portrait">
+              <svg class="icon" aria-hidden="true"><use href="#icon-skull"></use></svg>
+            </div>
+            <div class="hp-bar-wrap">
+              <div class="hero-name" id="enemy-name">Mage</div>
+              <div class="hp-bar"><div class="hp-fill" id="enemy-hp-bar"></div></div>
+              <div class="hero-hp" id="enemy-hp">HP 60/60</div>
+            </div>
+          </div>
+          <div class="hero-stats">
+            <span class="stat stat--block" id="enemy-block"><svg class="icon" aria-hidden="true"><use href="#icon-shield"></use></svg> 0</span>
+            <span class="stat stat--mana" id="enemy-mana"><svg class="icon" aria-hidden="true"><use href="#icon-bolt"></use></svg> 3/3</span>
+            <span class="stat" id="enemy-buffs"></span>
+          </div>
+          <div class="deck-counts">
+            <span>抽 <b id="enemy-draw-count">0</b></span>
+            <span>弃 <b id="enemy-discard-count">0</b></span>
+            <span>手 <b id="enemy-hand-count">0</b></span>
+          </div>
+          <div class="preview-badge" id="enemy-preview"></div>
+        </div>
+
+        <!-- Divider -->
+        <div class="vs-divider" aria-hidden="true"><span></span></div>
+
+        <!-- Player -->
+        <div class="battle-hero player-hero" data-drop="player">
+          <div class="hero-info">
+            <div class="hero-portrait player-portrait" id="player-portrait">
+              <svg class="icon" aria-hidden="true"><use href="#icon-sword"></use></svg>
+            </div>
+            <div class="hp-bar-wrap">
+              <div class="hero-name" id="player-name">Ironclad</div>
+              <div class="hp-bar"><div class="hp-fill" id="player-hp-bar"></div></div>
+              <div class="hero-hp" id="player-hp">HP 80/80</div>
+            </div>
+          </div>
+          <div class="hero-stats">
+            <span class="stat stat--block" id="player-block"><svg class="icon" aria-hidden="true"><use href="#icon-shield"></use></svg> 0</span>
+            <span class="stat stat--mana" id="player-mana"><svg class="icon" aria-hidden="true"><use href="#icon-bolt"></use></svg> 3/3</span>
+            <span class="stat" id="player-buffs"></span>
+          </div>
+          <div class="deck-counts">
+            <span>抽 <b id="player-draw-count">0</b></span>
+            <span>弃 <b id="player-discard-count">0</b></span>
+          </div>
+          <div class="preview-badge" id="player-preview"></div>
+        </div>
+
+        <!-- Player hand -->
+        <div id="player-hand" data-drop="hand"></div>
+
+        <!-- End turn -->
+        <div id="battle-actions">
+          <button id="btn-end-turn" class="primary">结束回合</button>
+          <button id="btn-forfeit" class="danger">认输</button>
+        </div>
+      </div>
+
+      <!-- Sidebar: log -->
+      <aside class="battle-sidebar">
+        <div class="sidebar-label">战 斗 日 志</div>
+        <div id="battle-log">
+          <div id="log-entries"></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Result overlay -->
+  <div id="result-overlay" class="hidden">
+    <div class="result-box">
+      <h2 id="result-text"></h2>
+      <p id="result-detail"></p>
+      <button id="btn-restart" class="primary">再来一局</button>
+    </div>
+  </div>
+</div>
+
+<script src="auth.js?v=9"></script>
+<script src="roguelike-map.js?v=6"></script>
+<script src="battle.js?v=11"></script>
+<script src="dream-fx.js?v=2"></script>
+</body>
+</html>

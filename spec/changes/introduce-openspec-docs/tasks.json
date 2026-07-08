@@ -1,0 +1,84 @@
+[
+  {
+    "number": 1,
+    "category": "结构搭建",
+    "task": "创建 OpenSpec 目录结构",
+    "steps": [
+      { "step": "创建 spec/specs/ 下五个能力目录", "completed": true },
+      { "step": "创建 spec/changes/introduce-openspec-docs/ 及子目录", "completed": true },
+      { "step": "创建 spec/archive/ 目录", "completed": true }
+    ],
+    "passes": true
+  },
+  {
+    "number": 2,
+    "category": "规范编写",
+    "task": "编写认证能力规范",
+    "steps": [
+      { "step": "编写 spec/specs/authentication/spec.md，包含默认管理员、登录、登出、令牌验证、角色授权", "completed": false },
+      { "step": "为每个需求编写正向和负向场景", "completed": false }
+    ],
+    "passes": false
+  },
+  {
+    "number": 3,
+    "category": "规范编写",
+    "task": "编写游戏数据管理能力规范",
+    "steps": [
+      { "step": "编写 spec/specs/game-data/spec.md，覆盖六张表的读写、备份、引用校验、导出", "completed": false },
+      { "step": "定义数据表清单和 Pydantic 校验规则", "completed": false }
+    ],
+    "passes": false
+  },
+  {
+    "number": 4,
+    "category": "规范编写",
+    "task": "编写玩家管理能力规范",
+    "steps": [
+      { "step": "编写 spec/specs/player/spec.md，覆盖列表、查询、创建、更新", "completed": false },
+      { "step": "覆盖管理员与普通玩家的权限差异", "completed": false }
+    ],
+    "passes": false
+  },
+  {
+    "number": 5,
+    "category": "规范编写",
+    "task": "编写对局管理能力规范",
+    "steps": [
+      { "step": "编写 spec/specs/match/spec.md，覆盖列表、查询、创建、删除", "completed": false },
+      { "step": "覆盖对局回放数据结构", "completed": false }
+    ],
+    "passes": false
+  },
+  {
+    "number": 6,
+    "category": "规范编写",
+    "task": "编写对战能力规范",
+    "steps": [
+      { "step": "编写 spec/specs/battle/spec.md，覆盖页面加载、数据加载、运行对局、保存记录", "completed": false },
+      { "step": "说明对战页为客户端页面，依赖后端 API", "completed": false }
+    ],
+    "passes": false
+  },
+  {
+    "number": 7,
+    "category": "提案整理",
+    "task": "创建变更提案与规范差异",
+    "steps": [
+      { "step": "编写 proposal.md", "completed": false },
+      { "step": "编写 spec-delta.md 汇总新增规范", "completed": false },
+      { "step": "验证需求与场景格式", "completed": false }
+    ],
+    "passes": false
+  },
+  {
+    "number": 8,
+    "category": "验证",
+    "task": "验证 OpenSpec 文档结构",
+    "steps": [
+      { "step": "运行 grep 校验需求与场景格式", "completed": false },
+      { "step": "确认所有能力目录均包含 spec.md", "completed": false }
+    ],
+    "passes": false
+  }
+]

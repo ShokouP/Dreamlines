@@ -1,0 +1,27 @@
+[
+  {
+    "id": "block",
+    "nameKey": "keyword.block.name",
+    "descriptionKey": "keyword.block.desc"
+  },
+  {
+    "id": "exhaust",
+    "nameKey": "keyword.exhaust.name",
+    "descriptionKey": "keyword.exhaust.desc"
+  },
+  {
+    "id": "ethereal",
+    "nameKey": "keyword.ethereal.name",
+    "descriptionKey": "keyword.ethereal.desc"
+  },
+  {
+    "id": "innate",
+    "nameKey": "keyword.innate.name",
+    "descriptionKey": "keyword.innate.desc"
+  },
+  {
+    "id": "retain",
+    "nameKey": "keyword.retain.name",
+    "descriptionKey": "keyword.retain.desc"
+  }
+]

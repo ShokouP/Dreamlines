@@ -1,0 +1,54 @@
+[
+  {
+    "id": "ironclad",
+    "nameKey": "执灯人",
+    "maxHp": 75,
+    "startingDeck": [
+      "strike", "strike", "strike", "strike",
+      "defend", "defend", "defend",
+      "bash", "cleave"
+    ],
+    "innateBuffIds": []
+  },
+  {
+    "id": "mage",
+    "nameKey": "拾梦人",
+    "maxHp": 55,
+    "maxMana": 4,
+    "startingMana": 4,
+    "manaGrowthPerTurn": 1,
+    "startingDeck": [
+      "frost_bolt", "frost_bolt",
+      "defend", "defend",
+      "fireball", "mana_surge", "concentrate"
+    ],
+    "innateBuffIds": []
+  },
+  {
+    "id": "nightwatch",
+    "nameKey": "守夜人",
+    "maxHp": 80,
+    "startingDeck": [
+      "defend", "defend", "defend",
+      "nightlight", "nightlight",
+      "doorbolt", "vigil",
+      "strike", "strike"
+    ],
+    "innateBuffIds": []
+  },
+  {
+    "id": "sleepwalker",
+    "nameKey": "梦游者",
+    "maxHp": 60,
+    "maxMana": 4,
+    "startingMana": 4,
+    "manaGrowthPerTurn": 1,
+    "startingDeck": [
+      "stairs", "stairs",
+      "mirrorone", "mirrorone",
+      "defend", "defend",
+      "sleepwalk", "halfsleep"
+    ],
+    "innateBuffIds": []
+  }
+]

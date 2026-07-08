@@ -1,0 +1,54 @@
+[
+  {
+    "id": "standard_1v1",
+    "nameKey": "对镜",
+    "maxPlayers": 2,
+    "phaseOrder": [
+      "BattleStart", "DrawPhase", "MainPhase", "BattlePhase", "EndPhase"
+    ],
+    "rules": {
+      "maxHandSize": "10",
+      "cardsPerTurn": "5",
+      "turnTimeLimitSec": "0"
+    }
+  },
+  {
+    "id": "roguelike_run",
+    "nameKey": "走回家",
+    "maxPlayers": 1,
+    "phaseOrder": [
+      "BattleStart", "DrawPhase", "MainPhase", "BattlePhase", "EndPhase"
+    ],
+    "rules": {
+      "maxHandSize": "10",
+      "cardsPerTurn": "5",
+      "turnTimeLimitSec": "0",
+      "mapWidth": 800,
+      "mapHeight": 600,
+      "nodeCount": 24,
+      "startPosition": { "x": 0.1, "y": 0.5 },
+      "bossPosition": { "x": 0.9, "y": 0.5 },
+      "minEdges": 1,
+      "maxEdges": 3,
+      "regionCount": 5,
+      "encounters": [
+        { "name": "积水", "hp": 35, "dmg": 5, "rewardChoices": 1, "regions": [1] },
+        { "name": "楼道", "hp": 50, "dmg": 7, "rewardChoices": 1, "regions": [1, 2] },
+        { "name": "旧电视", "hp": 70, "dmg": 10, "rewardChoices": 2, "regions": [2, 3] },
+        { "name": "衣柜", "hp": 90, "dmg": 13, "rewardChoices": 2, "regions": [3, 4] },
+        { "name": "暖气片", "hp": 115, "dmg": 16, "rewardChoices": 3, "regions": [4, 5] },
+        { "name": "家", "hp": 140, "dmg": 20, "rewardChoices": 3, "regions": [5] }
+      ],
+      "healBetweenEncounters": 20,
+      "expectedWinRate": 0.65,
+      "nodeTypes": {
+        "combat": { "weight": 45, "color": "#e94560", "icon": "sword" },
+        "elite": { "weight": 12, "color": "#9b59b6", "icon": "skull" },
+        "rest": { "weight": 12, "color": "#2ecc71", "icon": "heart" },
+        "event": { "weight": 18, "color": "#f1c40f", "icon": "bolt" },
+        "shop": { "weight": 8, "color": "#3498db", "icon": "orb" },
+        "treasure": { "weight": 5, "color": "#e67e22", "icon": "card-art" }
+      }
+    }
+  }
+]

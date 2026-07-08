@@ -1,0 +1,69 @@
+[
+  {
+    "id": "vulnerable",
+    "handlerType": "VulnerableBuffHandler",
+    "nameKey": "光脚",
+    "descriptionKey": "没穿鞋，被碰到时更疼。",
+    "stackPolicy": "Additive",
+    "isDebuff": true,
+    "params": { "damageMultiplier": "1.5" }
+  },
+  {
+    "id": "strength",
+    "handlerType": "StrengthBuffHandler",
+    "nameKey": "长高了",
+    "descriptionKey": "突然长高了，碰到别人时更用力。",
+    "stackPolicy": "Additive",
+    "params": {}
+  },
+  {
+    "id": "poison",
+    "handlerType": "PoisonBuffHandler",
+    "nameKey": "肚子疼",
+    "descriptionKey": "隐隐的肚子疼，每回合开始疼一下。",
+    "stackPolicy": "Additive",
+    "isDebuff": true,
+    "params": {}
+  },
+  {
+    "id": "thorns",
+    "handlerType": "ThornsBuffHandler",
+    "nameKey": "扎手",
+    "descriptionKey": "摸一下就扎手，被碰到时回敬一下。",
+    "stackPolicy": "Additive",
+    "params": { "damageAmount": "2" }
+  },
+  {
+    "id": "burning",
+    "handlerType": "BurningBuffHandler",
+    "nameKey": "发烧",
+    "descriptionKey": "额头烫烫的，每回合开始烫一下，慢慢退烧。",
+    "stackPolicy": "Additive",
+    "isDebuff": true,
+    "params": {}
+  },
+  {
+    "id": "ritual",
+    "handlerType": "RitualBuffHandler",
+    "nameKey": "做功课",
+    "descriptionKey": "每天做功课，每回合长高一点。",
+    "stackPolicy": "Additive",
+    "params": {}
+  },
+  {
+    "id": "regeneration",
+    "handlerType": "RegenerationBuffHandler",
+    "nameKey": "打盹",
+    "descriptionKey": "打了个盹，每回合回暖一点。",
+    "stackPolicy": "Additive",
+    "params": {}
+  },
+  {
+    "id": "metallicize",
+    "handlerType": "MetallicizeBuffHandler",
+    "nameKey": "穿外套",
+    "descriptionKey": "外套一直穿着，每回合开始挡一下。",
+    "stackPolicy": "Additive",
+    "params": { "blockAmount": "2" }
+  }
+]
