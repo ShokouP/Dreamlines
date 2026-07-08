@@ -62,6 +62,7 @@ python -m uvicorn server:app --host 0.0.0.0 --port 8001
 |------|------|
 | `ADMIN_PASSWORD` | 管理员密码，**务必改掉默认 admin** |
 | `DEEPSEEK_API_KEY` | DeepSeek key（或写入 `secrets.json`，但平台建议用环境变量） |
+| `OPEN_REGISTRATION` | 设为 `false` 关闭自助注册（防账号刷量；管理员仍可经 `/api/players` 建号） |
 
 注意：
 - `data/players/`、`data/matches/` 是运行时数据，免费平台文件系统多为准ephemeral，重新部署会丢。需要持久化请挂载卷或换数据库。

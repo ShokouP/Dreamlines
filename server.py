@@ -125,6 +125,8 @@ async def auth_me(request: Request):
 
 @app.post("/api/auth/register")
 async def auth_register(body: dict[str, str]):
+    if os.environ.get("OPEN_REGISTRATION", "true").lower() not in ("1", "true", "yes"):
+        raise HTTPException(403, "注册已关闭")
     username = body.get("username", "")
     password = body.get("password", "")
     display_name = body.get("displayName", "")
