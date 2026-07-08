@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: dreamlines
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m uvicorn server:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /login.html
+    autoDeploy: true
+    envVars:
+      - key: OPEN_REGISTRATION
+        value: "true"
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: DEEPSEEK_API_KEY
+        sync: false
+    domains:
+      - screenmemory.space
+      - www.screenmemory.space
