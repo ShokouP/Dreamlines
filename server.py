@@ -7,9 +7,11 @@ import json
 import os
 import secrets
 import shutil
+import time
 import urllib.error
 import urllib.request
 import zipfile
+from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -321,6 +323,9 @@ def _load_secret(name, default=""):
 
 DEEPSEEK_API_KEY = _load_secret("deepseek_key")
 
+# In-memory per-user rate limit buckets for /api/dream-narrate.
+_narrate_calls: dict[str, list[float]] = defaultdict(list)
+
 DREAM_SYSTEM_PROMPT = (
     "你是一位梦核（dreamcore）风格小说家。你会收到一段卡牌对战的事件流水，"
     "把它改写成第二人称、现在时的梦核小说片段，像一段正在发生的梦。\n"
@@ -338,7 +343,14 @@ DREAM_SYSTEM_PROMPT = (
 
 @app.post("/api/dream-narrate")
 async def dream_narrate(body: dict, request: Request):
-    get_current_user(request)  # require login
+    user = get_current_user(request)  # require login
+    # Per-user rate limit: protects the DeepSeek budget from abuse.
+    now = time.time()
+    calls = [t for t in _narrate_calls.get(user["id"], []) if t > now - 60]
+    calls.append(now)
+    _narrate_calls[user["id"]] = calls
+    if len(calls) > 30:
+        raise HTTPException(429, "请求太频繁，稍后再试")
     events = body.get("events", []) or []
     context = (body.get("context", "") or "").strip()
     if not events:

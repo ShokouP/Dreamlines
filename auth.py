@@ -36,15 +36,25 @@ def _save_user(user: dict) -> None:
 
 
 def _ensure_default_admin():
-    """Create default admin user if not exists."""
+    """Create default admin user if not exists.
+
+    Password is taken from the ADMIN_PASSWORD env var; defaults to 'admin'
+    with a warning (local dev only). On public deploy, always set ADMIN_PASSWORD.
+    """
     path = PLAYERS_DIR / "admin.json"
     if path.exists():
         return
     PLAYERS_DIR.mkdir(parents=True, exist_ok=True)
+    import os
+    admin_pw = os.environ.get("ADMIN_PASSWORD", "")
+    if not admin_pw:
+        print("⚠️  ADMIN_PASSWORD not set — using default 'admin'. "
+              "Set the ADMIN_PASSWORD env var before public deploy.")
+        admin_pw = "admin"
     admin = {
         "id": "admin",
         "username": "admin",
-        "passwordHash": _hash_password("admin"),
+        "passwordHash": _hash_password(admin_pw),
         "role": "admin",
         "displayName": "Administrator",
         "createdAt": datetime.now(timezone.utc).isoformat(),

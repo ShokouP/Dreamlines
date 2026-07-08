@@ -54,6 +54,20 @@ python -m uvicorn server:app --host 0.0.0.0 --port 8001
 - 默认管理员：`admin` / `admin`（管理后台 `/`）
 - 玩家可在 `/login.html` 自助注册，进入 `/play.html`
 
+## 公开部署
+
+平台（Render / Railway / Fly 等）从 GitHub 自动构建。环境变量必设：
+
+| 变量 | 说明 |
+|------|------|
+| `ADMIN_PASSWORD` | 管理员密码，**务必改掉默认 admin** |
+| `DEEPSEEK_API_KEY` | DeepSeek key（或写入 `secrets.json`，但平台建议用环境变量） |
+
+注意：
+- `data/players/`、`data/matches/` 是运行时数据，免费平台文件系统多为准ephemeral，重新部署会丢。需要持久化请挂载卷或换数据库。
+- `/api/dream-narrate` 已限流（每用户 30 次/分钟）防 DeepSeek 额度被刷。
+- 注册开放（玩家可自助注册），如需关闭请改 `server.py` 的 `/api/auth/register`。
+
 ## 目录结构
 
 ```
