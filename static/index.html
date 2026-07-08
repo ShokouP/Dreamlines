@@ -3,83 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CardForge SDD 管理后台</title>
-<link rel="stylesheet" href="style.css">
+<title>Dreamlines · 走回家</title>
+<link rel="stylesheet" href="style.css?v=7">
+<style>
+  #landing { max-width: 980px; margin: 0 auto; padding: 56px 32px 80px; min-height: 100vh; position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; }
+  #landing .brand { font-size: 0.62rem; color: var(--fg-dim); letter-spacing: 0.4em; text-transform: uppercase; margin-bottom: 18px; }
+  #landing h1 { font-size: clamp(3rem, 10vw, 5.4rem); font-weight: 100; letter-spacing: -0.04em; line-height: 1; margin-bottom: 18px; animation: fade-up 1s cubic-bezier(0.4,0,0.2,1); }
+  #landing h1 .red { color: var(--accent); }
+  #landing .tagline { font-size: 1.05rem; font-weight: 200; color: var(--fg-dim); max-width: 46ch; line-height: 1.8; margin-bottom: 40px; animation: fade-up 1.1s 0.1s cubic-bezier(0.4,0,0.2,1) backwards; }
+  #landing .entries { display: flex; flex-direction: column; gap: 4px; max-width: 460px; animation: fade-up 1.2s 0.2s cubic-bezier(0.4,0,0.2,1) backwards; }
+  #landing .entry { display: block; text-decoration: none; color: var(--fg); padding: 18px 0; border-top: 1px solid var(--border-strong); transition: padding-left var(--transition-base), color var(--transition-base); }
+  #landing .entry:last-child { border-bottom: 1px solid var(--border-strong); }
+  #landing .entry:hover { color: var(--accent); padding-left: 14px; }
+  #landing .entry .arrow { color: var(--accent); margin-right: 14px; transition: transform var(--transition-base); display: inline-block; }
+  #landing .entry:hover .arrow { transform: translateX(6px); }
+  #landing .entry .title { font-size: 1.5rem; font-weight: 200; letter-spacing: -0.02em; }
+  #landing .entry .sub { display: block; font-size: 0.7rem; font-weight: 400; color: var(--fg-dim); letter-spacing: 0.16em; text-transform: uppercase; margin-top: 6px; }
+  #landing .auth-bar { margin-top: 40px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+  #landing .auth-bar a { font-size: 0.7rem; color: var(--fg-dim); letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid transparent; transition: color var(--transition-fast), border-color var(--transition-fast); }
+  #landing .auth-bar a:hover { color: var(--fg); border-bottom-color: var(--border-strong); }
+  #landing #user-display { color: var(--fg-dim); font-size: 0.72rem; letter-spacing: 0.04em; }
+  .fog-layer { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .fog-layer::before, .fog-layer::after { content: ''; position: absolute; width: 70vw; height: 70vw; border-radius: 50%; filter: blur(100px); }
+  .fog-layer::before { background: var(--fg); top: -25%; left: -15%; opacity: 0.06; animation: drift1 36s ease-in-out infinite alternate; }
+  .fog-layer::after { background: var(--accent); bottom: -30%; right: -20%; opacity: 0.04; animation: drift2 48s ease-in-out infinite alternate; }
+  @keyframes drift1 { to { transform: translate(22vw, 12vh) scale(1.1); } }
+  @keyframes drift2 { to { transform: translate(-18vw, -10vh) scale(1.15); } }
+  @keyframes fade-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+</style>
 </head>
 <body>
-<div id="app">
-  <header>
-    <h1>CardForge SDD</h1>
-    <span class="subtitle">数据驱动卡牌游戏管理后台</span>
-    <div id="user-bar">
-      <span id="user-display"></span>
-      <button id="btn-logout" class="small">登出</button>
-    </div>
-  </header>
-  <nav id="tabs">
-    <button data-table="cards" class="active">Cards</button>
-    <button data-table="effects">Effects</button>
-    <button data-table="buffs">Buffs</button>
-    <button data-table="characters">Characters</button>
-    <button data-table="game-modes">Game Modes</button>
-    <button data-table="keywords">Keywords</button>
-    <a href="battle.html" class="tab-link">对战</a>
-    <button data-table="players" class="admin-only">Players</button>
-    <button data-table="matches" class="admin-only">Matches</button>
-  </nav>
-  <div id="toolbar">
-    <input type="text" id="search" placeholder="搜索..." />
-    <div class="tb-actions">
-      <button id="btn-add">+ 新增</button>
-      <button id="btn-save-all" class="primary">保存全部</button>
-      <button id="btn-export">导出 ZIP</button>
-      <button id="btn-validate">校验引用</button>
-    </div>
-  </div>
-  <div id="status"></div>
-  <div id="table-wrap">
-    <table id="data-table">
-      <thead></thead>
-      <tbody></tbody>
-    </table>
-  </div>
-  <!-- Match replay viewer -->
-  <div id="replay-viewer" class="hidden">
-    <div class="replay-header">
-      <h3 id="replay-title">对局回放</h3>
-      <button id="btn-close-replay">✕</button>
-    </div>
-    <div id="replay-content"></div>
-  </div>
-  <!-- Editor panel -->
-  <div id="editor-panel" class="hidden">
-    <div class="editor-header">
-      <h3 id="editor-title">编辑</h3>
-      <button id="btn-close-editor">✕</button>
-    </div>
-    <div id="editor-fields"></div>
-    <div class="editor-footer">
-      <button id="btn-save-item" class="primary">保存条目</button>
-      <button id="btn-cancel-item">取消</button>
-    </div>
+<div class="fog-layer" aria-hidden="true"></div>
+<div id="landing">
+  <div class="brand">梦 核 · DREAMCORE</div>
+  <h1>走<span class="red">回</span>家</h1>
+  <p class="tagline">你醒着，也睡着。钥匙还在门垫下——推开门，穿过童年的旧房子，回到自己的房间。沿途的梦魇不是要被打败，是要被想起来。</p>
+
+  <div class="entries">
+    <a class="entry" href="roguelike.html"><span class="arrow">→</span><span class="title">走回家</span><span class="sub">肉鸽冒险 · 五段记忆 · 真结局</span></a>
+    <a class="entry" href="battle.html"><span class="arrow">→</span><span class="title">对镜</span><span class="sub">1v1 对战 · AI 实时改写梦核小说</span></a>
+    <a class="entry" href="play.html" id="entry-home" style="display:none"><span class="arrow">→</span><span class="title">个人中心</span><span class="sub">纪念物 · 梦的记录 · 最远进度</span></a>
   </div>
 
-  <!-- Empty state template -->
-  <template id="empty-state-template">
-    <tr class="empty-state-row">
-      <td colspan="100%">
-        <div class="empty-state">
-          <div class="empty-state__icon">🔍</div>
-          <div class="empty-state__title">暂无数据</div>
-          <div class="empty-state__desc">当前筛选条件下没有找到记录</div>
-        </div>
-      </td>
-    </tr>
-  </template>
+  <div class="auth-bar" id="auth-bar">
+    <a href="login.html">登录 / 注册</a>
+  </div>
 </div>
-<div id="overlay" class="hidden"></div>
-<div id="toast-container"></div>
-<script src="auth.js"></script>
-<script src="app.js"></script>
+<script src="auth.js?v=7"></script>
+<script>
+  (async () => {
+    const user = await checkAuth();
+    const bar = document.getElementById('auth-bar');
+    if (user) {
+      document.getElementById('entry-home').style.display = 'block';
+      if (user.role === 'admin') {
+        bar.innerHTML = `<span id="user-display">${user.displayName || user.username} · 管理员</span><a href="admin.html">后台</a><a href="#" id="lnk-logout">登出</a>`;
+        document.getElementById('lnk-logout').onclick = (e) => { e.preventDefault(); logout(); };
+      } else {
+        bar.innerHTML = `<span id="user-display">${user.displayName || user.username}</span><a href="#" id="lnk-logout">登出</a>`;
+        document.getElementById('lnk-logout').onclick = (e) => { e.preventDefault(); logout(); };
+      }
+    }
+  })();
+</script>
 </body>
 </html>

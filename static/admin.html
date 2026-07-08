@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dreamlines · 管理后台</title>
+<link rel="stylesheet" href="style.css?v=7">
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>Dreamlines</h1>
+    <span class="subtitle">数据驱动卡牌游戏管理后台</span>
+    <div id="user-bar">
+      <a href="index.html" class="link-subtle">返回首页</a>
+      <span id="user-display"></span>
+      <button id="btn-logout" class="small">登出</button>
+    </div>
+  </header>
+  <nav id="tabs">
+    <button data-table="cards" class="active">Cards</button>
+    <button data-table="effects">Effects</button>
+    <button data-table="buffs">Buffs</button>
+    <button data-table="characters">Characters</button>
+    <button data-table="game-modes">Game Modes</button>
+    <button data-table="keywords">Keywords</button>
+    <a href="battle.html" class="tab-link">对战</a>
+    <button data-table="players" class="admin-only">Players</button>
+    <button data-table="matches" class="admin-only">Matches</button>
+  </nav>
+  <div id="toolbar">
+    <input type="text" id="search" placeholder="搜索..." />
+    <div class="tb-actions">
+      <button id="btn-add">+ 新增</button>
+      <button id="btn-save-all" class="primary">保存全部</button>
+      <button id="btn-export">导出 ZIP</button>
+      <button id="btn-validate">校验引用</button>
+    </div>
+  </div>
+  <div id="status"></div>
+  <div id="table-wrap">
+    <table id="data-table">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div id="replay-viewer" class="hidden">
+    <div class="replay-header">
+      <h3 id="replay-title">对局回放</h3>
+      <button id="btn-close-replay">✕</button>
+    </div>
+    <div id="replay-content"></div>
+  </div>
+  <div id="editor-panel" class="hidden">
+    <div class="editor-header">
+      <h3 id="editor-title">编辑</h3>
+      <button id="btn-close-editor">✕</button>
+    </div>
+    <div id="editor-fields"></div>
+    <div class="editor-footer">
+      <button id="btn-save-item" class="primary">保存条目</button>
+      <button id="btn-cancel-item">取消</button>
+    </div>
+  </div>
+  <template id="empty-state-template">
+    <tr class="empty-state-row">
+      <td colspan="100%">
+        <div class="empty-state">
+          <div class="empty-state__icon">🔍</div>
+          <div class="empty-state__title">暂无数据</div>
+          <div class="empty-state__desc">当前筛选条件下没有找到记录</div>
+        </div>
+      </td>
+    </tr>
+  </template>
+</div>
+<div id="overlay" class="hidden"></div>
+<div id="toast-container"></div>
+<script src="auth.js?v=7"></script>
+<script src="app.js?v=7"></script>
+</body>
+</html>

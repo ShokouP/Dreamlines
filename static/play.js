@@ -8,7 +8,7 @@ const MODE_LABELS = { 'roguelike_run': '走回家', 'standard_1v1': '对镜', 'p
 document.addEventListener('DOMContentLoaded', async () => {
   currentUser = await checkAuth();
   if (!currentUser) { window.location.href = '/login.html'; return; }
-  if (currentUser.role === 'admin') { window.location.href = '/'; return; }
+  if (currentUser.role === 'admin') { window.location.href = '/admin.html'; return; }
 
   renderProfile();
   renderEntry();

@@ -599,7 +599,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     backLink.href = roguelikeCtx.returnTo;
     backLink.textContent = '返回地图';
   } else if (currentUser.role === 'admin') {
-    backLink.href = '/';
+    backLink.href = '/admin.html';
     backLink.textContent = '返回管理';
   } else {
     backLink.href = '/play.html';

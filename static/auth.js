@@ -32,7 +32,7 @@ function authHeaders() {
 
 function redirectByRole(user) {
   if (!user) { window.location.href = '/login.html'; return; }
-  if (user.role === 'admin') window.location.href = '/';
+  if (user.role === 'admin') window.location.href = '/admin.html';
   else window.location.href = '/play.html';
 }
 
