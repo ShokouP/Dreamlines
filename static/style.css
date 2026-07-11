@@ -1299,11 +1299,6 @@ button.small { padding: 4px 10px; font-size: 0.75rem; }
   animation: card-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) backwards;
   user-select: none;
 }
-.card--attack { }
-.card--skill { }
-.card--power { }
-.card--status { }
-.card--curse { }
 .card.playable:hover {
   border-color: var(--border-strong);
   transform: translateY(-8px);

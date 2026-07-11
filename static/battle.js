@@ -556,7 +556,7 @@ function overrideGameForRoguelike(game) {
   if (window.modifierFor) {
     const mod = window.modifierFor(node.region, node.type);
     const nightmare = run.nightmare || 0;
-    const hpScale = mod.hp * (1 + nightmare * 0.02);
+    const hpScale = mod.hp * (1 + nightmare * 0.015);
     game.enemy.maxHp = Math.round(game.enemy.maxHp * hpScale);
     game.enemy.hp = game.enemy.maxHp;
     if (mod.str > 0) game.enemy.buffs.push({ id: 'strength', stacks: mod.str, duration: 99, source: 'enemy' });
