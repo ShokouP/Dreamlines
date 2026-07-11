@@ -141,13 +141,13 @@ async def auth_register(body: dict[str, str]):
 
 @app.get("/api/validate/refs")
 async def validate_refs(request: Request):
-    get_current_user(request)
+    require_role_sync("admin")(request)
     return {"valid": len(errors := _validate_refs()) == 0, "errors": errors}
 
 
 @app.get("/api/export")
 async def export_data(request: Request):
-    get_current_user(request)
+    require_role_sync("admin")(request)
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
         for _, (filename, _) in TABLES.items():
@@ -304,7 +304,7 @@ async def get_table(table: str, request: Request):
 
 @app.put("/api/{table}")
 async def put_table(table: str, rows: list[dict[str, Any]], request: Request):
-    get_current_user(request)
+    require_role_sync("admin")(request)
     if table not in TABLES:
         raise HTTPException(404, f"Unknown table: {table}")
     _write_table(table, rows)
